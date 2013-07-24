@@ -87,6 +87,8 @@ public class CacheableMixer2Engine extends Mixer2Engine {
                     log.warn("pigs fly!", e);
                     // the value of cache has only Html object.
                 }
+            } else {
+                resultHtml = cachedHtml;
             }
         } else {
             resultHtml = super.unmarshal(sb);
