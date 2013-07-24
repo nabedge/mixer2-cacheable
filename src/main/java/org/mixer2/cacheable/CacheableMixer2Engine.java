@@ -18,6 +18,11 @@ public class CacheableMixer2Engine extends Mixer2Engine {
 
     private Cache<String, Html> cache = null;
 
+    public CacheableMixer2Engine() {
+        super();
+        log.info("CachableMixer2Engine initialized");
+    }
+    
     public boolean isCacheEnabled() {
         return cacheEnabled;
     }
