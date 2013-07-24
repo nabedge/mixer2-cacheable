@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <name>mixer2-cacheable</name>
-    <url>http://maven.apache.org</url>
+    <url>http://mixer2.org/</url>
 
     <properties>
         <encoding>UTF-8</encoding>
@@ -159,15 +159,40 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>[0.5,)</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.mixer2</groupId>
             <artifactId>mixer2</artifactId>
-<!--             <version>1.2.8</version> -->
+            <!-- <version>[1.2.8,)</version> -->
             <version>1.2-SNAPSHOT</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.8</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
