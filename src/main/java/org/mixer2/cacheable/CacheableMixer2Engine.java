@@ -10,6 +10,16 @@ import org.mixer2.cacheable.util.DigestUtils;
 import org.mixer2.jaxb.xhtml.Html;
 import org.mixer2.xhtml.exception.TagTypeUnmatchException;
 
+/**
+ * TODO write javadoc.
+ * 
+ * need cache-api-0.5.jar (or higher)
+ * need mixer2-1.2.8.jar (or higher)
+ * 
+ * sample code...
+ * 
+ * @author nabedge
+ */
 public class CacheableMixer2Engine extends Mixer2Engine {
 
     private static Log log = LogFactory.getLog(CacheableMixer2Engine.class);
@@ -66,7 +76,7 @@ public class CacheableMixer2Engine extends Mixer2Engine {
      * always returns copy() of html object...
      */
     @Override
-    protected Html unmarshal(StringBuilder sb) throws JAXBException {
+    protected final Html unmarshal(StringBuilder sb) throws JAXBException {
         Html html = null;
         if (cacheEnabled && cache != null) {
             String cacheKey = DigestUtils.sha1Hex(sb.toString());

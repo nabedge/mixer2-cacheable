@@ -4,10 +4,10 @@
 
     <groupId>org.mixer2</groupId>
     <artifactId>mixer2-cacheable</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>mixer2-cacheable</name>
+    <name>${project.artifactId}</name>
     <url>http://mixer2.org/</url>
 
     <properties>
