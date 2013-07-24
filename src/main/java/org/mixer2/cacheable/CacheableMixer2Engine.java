@@ -13,8 +13,7 @@ import org.mixer2.xhtml.exception.TagTypeUnmatchException;
 /**
  * TODO write javadoc.
  * 
- * need cache-api-0.5.jar (or higher)
- * need mixer2-1.2.8.jar (or higher)
+ * need cache-api-0.5.jar (or higher) need mixer2-1.2.8.jar (or higher)
  * 
  * sample code...
  * 
@@ -32,7 +31,7 @@ public class CacheableMixer2Engine extends Mixer2Engine {
         super();
         log.info("CachableMixer2Engine initialized");
     }
-    
+
     public boolean isCacheEnabled() {
         return cacheEnabled;
     }
@@ -48,8 +47,8 @@ public class CacheableMixer2Engine extends Mixer2Engine {
      * key.
      * </p>
      * <p>
-     * unmarshal済みのテンプレートをキャッシュするためのオブジェクトをセットします。
-     * キャッシュのキーはStringで、テンプレート文字列自体のsha1ハッシュ値が自動的に使われます。
+     * xhtmlテンプレートをunmarshalした結果のHtml型インスタンスをキャッシュするオブジェクトをセットします。
+     * キャッシュのキーはStringで、自動的にテンプレート文字列自体のsha1ハッシュ値が使われます。
      * </p>
      * 
      * @param cache
@@ -72,33 +71,27 @@ public class CacheableMixer2Engine extends Mixer2Engine {
     }
 
     /**
-     * TODO write javadoc
-     * always returns copy() of html object...
+     * TODO write javadoc always returns copy() of html object...
      */
     @Override
     protected final Html unmarshal(StringBuilder sb) throws JAXBException {
-        Html html = null;
+        Html resultHtml = null;
         if (cacheEnabled && cache != null) {
             String cacheKey = DigestUtils.sha1Hex(sb.toString());
-            try {
-                html = cache.get(cacheKey).copy(Html.class);
-            } catch (TagTypeUnmatchException e) {
-                log.warn("pigs fly!", e);
-                // cache has only Html object.
-            }
-            if (html == null) {
-                html = super.unmarshal(sb);
+            Html cachedHtml = cache.get(cacheKey);
+            if (cachedHtml == null) {
+                resultHtml = super.unmarshal(sb);
                 try {
-                    cache.putIfAbsent(cacheKey, html.copy(Html.class));
+                    cache.putIfAbsent(cacheKey, resultHtml.copy(Html.class));
                 } catch (TagTypeUnmatchException e) {
                     log.warn("pigs fly!", e);
-                    // cache has only Html object.
+                    // the value of cache has only Html object.
                 }
             }
         } else {
-            html = super.unmarshal(sb);
+            resultHtml = super.unmarshal(sb);
         }
-        return html;
+        return resultHtml;
     }
 
 }
