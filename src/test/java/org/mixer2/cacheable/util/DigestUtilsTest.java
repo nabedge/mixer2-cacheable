@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,14 +20,13 @@ public class DigestUtilsTest {
     @Before
     public void init() throws IOException {
         templateFilePath = getClass().getResource(templateFileName).toString();
-        String osname = System.getProperty("os.name");
-        if(osname.indexOf("Windows")>=0){
+        if (SystemUtils.IS_OS_WINDOWS) {
             templateFilePath = templateFilePath.replaceFirst("file:/", "");
         } else {
             templateFilePath = templateFilePath.replaceFirst("file:", "");
         }
     }
-    
+
     @Test
     public void testSha1Hex() {
         String str = "abcdefg";
@@ -48,13 +48,14 @@ public class DigestUtilsTest {
         int loop = 10000;
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        for (int i=0; i<loop; i++) {
+        for (int i = 0; i < loop; i++) {
             File file = new File(templateFilePath);
             DigestUtils.sha1Hex(FileUtils.readFileToString(file));
         }
         stopWatch.stop();
-        System.out.println("SHA-1 digest performance test. loop= " + loop + ", time(msec)= " + stopWatch.getTime());
-        
+        System.out.println("SHA-1 digest performance test. loop= " + loop
+                + ", time(msec)= " + stopWatch.getTime());
+
     }
 
 }

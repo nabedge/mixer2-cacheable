@@ -8,12 +8,14 @@ import org.apache.commons.logging.LogFactory;
 import org.mixer2.Mixer2Engine;
 import org.mixer2.cacheable.util.DigestUtils;
 import org.mixer2.jaxb.xhtml.Html;
-import org.mixer2.xhtml.exception.TagTypeUnmatchException;
 
 /**
  * TODO write javadoc.
  * 
- * need cache-api-0.5.jar (or higher) need mixer2-1.2.8.jar (or higher)
+ * <ul>
+ * <li>cache-api-0.8.jar (or higher)</li>
+ * <li>mixer2-1.2.9.jar (or higher)</li>
+ * </ul>
  * 
  * sample code...
  * 
@@ -25,7 +27,7 @@ public class CacheableMixer2Engine extends Mixer2Engine {
 
     private boolean cacheEnabled = true;
 
-    private Cache<String, Html> cache = null;
+    private Cache<String, Html> cache = new SimpleCache();
 
     public CacheableMixer2Engine() {
         super();
@@ -36,6 +38,10 @@ public class CacheableMixer2Engine extends Mixer2Engine {
         return cacheEnabled;
     }
 
+    /**
+     * on/off function
+     * @param cacheEnabled if set false, cache function will be disabled.
+     */
     public void setCacheEnabled(boolean cacheEnabled) {
         this.cacheEnabled = cacheEnabled;
     }
@@ -44,16 +50,20 @@ public class CacheableMixer2Engine extends Mixer2Engine {
      * <p>
      * set cache object for loaded(unmashalled) template. The key of cache is
      * String, sha1 hash value of template string. You need not to create cache
-     * key.
+     * key. Before set the new one, call removeAllCache() to remove cache on old
+     * object.
      * </p>
      * <p>
      * xhtmlテンプレートをunmarshalした結果のHtml型インスタンスをキャッシュするオブジェクトをセットします。
      * キャッシュのキーはStringで、自動的にテンプレート文字列自体のsha1ハッシュ値が使われます。
+     * あたらしいCacheオブジェクトをセットする前に、 それ以前のキャッシュオブジェクトに対してremoveAllCache()をコールします。
      * </p>
      * 
      * @param cache
      */
     public synchronized void setCache(Cache<String, Html> cache) {
+        removeAllCache();
+        this.cache = null;
         this.cache = cache;
     }
 
@@ -75,25 +85,20 @@ public class CacheableMixer2Engine extends Mixer2Engine {
      */
     @Override
     protected final Html unmarshal(StringBuilder sb) throws JAXBException {
-        Html resultHtml = null;
+        Html result = null;
         if (cacheEnabled && cache != null) {
             String cacheKey = DigestUtils.sha1Hex(sb.toString());
-            Html cachedHtml = cache.get(cacheKey);
-            if (cachedHtml == null) {
-                resultHtml = super.unmarshal(sb);
-                try {
-                    cache.putIfAbsent(cacheKey, resultHtml.copy(Html.class));
-                } catch (TagTypeUnmatchException e) {
-                    log.warn("pigs fly!", e);
-                    // the value of cache has only Html object.
-                }
+            Html cached = cache.get(cacheKey);
+            if (cached == null) {
+                result = super.unmarshal(sb);
+                cache.putIfAbsent(cacheKey, result.copyNoException(Html.class));
             } else {
-                resultHtml = cachedHtml;
+                result = cached.copyNoException(Html.class);
             }
         } else {
-            resultHtml = super.unmarshal(sb);
+            result = super.unmarshal(sb);
         }
-        return resultHtml;
+        return result;
     }
 
 }
