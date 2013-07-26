@@ -28,7 +28,7 @@
 <!--             <excludes> -->
 <!--                 <exclude>org.springframework:spring-webmvc</exclude> -->
 <!--             </excludes> -->
-            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
         </dependencySet>
     </dependencySets>
 </assembly>
