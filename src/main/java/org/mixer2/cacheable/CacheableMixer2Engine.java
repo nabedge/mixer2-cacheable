@@ -21,7 +21,7 @@ import org.mixer2.jaxb.xhtml.Html;
  * Also you should add cache library that has implementation of javax.cache (JSR-107).
  * </p>
  * <p>
- * In convinience, When you instantiate CachableMixer2Engine, 
+ * In convenience, When you instantiate CachableMixer2Engine, 
  * SimpleCache instance is used as the cache object.
  * If you use any other cache implementation, 
  * use setCache() method.
