@@ -68,8 +68,7 @@
         <dependency>
             <groupId>org.mixer2</groupId>
             <artifactId>mixer2</artifactId>
-            <!-- <version>[1.2.8,)</version> -->
-            <version>1.2-SNAPSHOT</version>
+            <version>1.2.10</version>
             <optional>true</optional>
         </dependency>
         <dependency>
