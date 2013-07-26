@@ -10,15 +10,24 @@ import org.mixer2.cacheable.util.DigestUtils;
 import org.mixer2.jaxb.xhtml.Html;
 
 /**
- * TODO write javadoc.
+ * Cache wrapper for Mixer2Engine.
  * 
+ * <p>
+ * requires:
  * <ul>
  * <li>cache-api-0.8.jar (or higher)</li>
- * <li>mixer2-1.2.9.jar (or higher)</li>
+ * <li>mixer2-1.2.10.jar (or higher)</li>
  * </ul>
+ * Also you should add cache library that has implementation of javax.cache (JSR-107).
+ * </p>
+ * <p>
+ * In convinience, When you instantiate CachableMixer2Engine, 
+ * SimpleCache instance is used as the cache object.
+ * If you use any other cache implementation, 
+ * use setCache() method.
+ * </p>
  * 
- * sample code...
- * 
+ * @see SimpleCache
  * @author nabedge
  */
 public class CacheableMixer2Engine extends Mixer2Engine {
@@ -81,7 +90,16 @@ public class CacheableMixer2Engine extends Mixer2Engine {
     }
 
     /**
-     * TODO write javadoc always returns copy() of html object...
+     * <p>
+     * Unmarshal html string to Html instance using cache.
+     * If cache hit, return the copy of Html instance from cache.
+     * If cache has no object, unmarshal html string to Html instance 
+     * and put the copy into cache.
+     * </p>
+     * <p>
+     * It uses sha-1 hash of html string as the cache key.
+     * So you shuld not be worry about the key.
+     * </p>
      */
     @Override
     protected final Html unmarshal(StringBuilder sb) throws JAXBException {
