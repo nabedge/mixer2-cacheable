@@ -7,8 +7,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
-import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.Before;
@@ -19,7 +19,7 @@ public class CacheableMixer2EngineTest {
 
     private String templateFileName = "sample-xhtml1-transitional.html";
     private String templateFilePath;
-    private CacheableMixer2Engine m2e = new CacheableMixer2Engine();
+    private static CacheableMixer2Engine m2e = CacheableMixer2EngineSingleton.getInstance();
     private int loop = 1000;
 
     @Before
@@ -60,31 +60,32 @@ public class CacheableMixer2EngineTest {
     }
 
     @Test
-    public void loopWithCache() throws IOException {
+    public void string_loopWithCache() throws Exception {
         m2e.setCacheEnabled(true);
+        m2e.removeAllCache();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
+        String str = FileUtils.readFileToString(new File(templateFilePath));
         for (int i = 0; i < loop; i++) {
-            File file = new File(templateFilePath);
-            m2e.loadHtmlTemplate(file);
+            m2e.loadHtmlTemplate(str);
         }
         stopWatch.stop();
-        System.out.println("   loopWithCache: loop=" + loop + ", time(msec)="
+        System.out.println("   string_loopWithCache: loop=" + loop + ", time(msec)="
                 + stopWatch.getTime());
     }
 
     @Test
-    public void loopWithoutCache() throws IOException {
+    public void string_loopWithoutCache() throws Exception {
         m2e.setCacheEnabled(false);
+        m2e.removeAllCache();
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
+        String str = FileUtils.readFileToString(new File(templateFilePath));
         for (int i = 0; i < loop; i++) {
-            File file = new File(templateFilePath);
-            m2e.loadHtmlTemplate(file);
+            m2e.loadHtmlTemplate(str);
         }
         stopWatch.stop();
-        System.out.println("loopWithOutCache: loop=" + loop + ", time(msec)="
+        System.out.println("string_loopWithOutCache: loop=" + loop + ", time(msec)="
                 + stopWatch.getTime());
     }
-
 }
