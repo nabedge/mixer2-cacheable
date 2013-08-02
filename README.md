@@ -54,6 +54,9 @@ after:
         class="org.mixer2.cacheable.CacheableMixer2Engine"
         scope="singleton" />
 
+In default, Engine has SimpleCache instance that uses 
+CuncurrentHashMap as cache store.
+
 To use custom cache instance,
 you should implement javax.cache.Cache interface
 and call CacheableMixer2Engine#setCache(yourCache) .
