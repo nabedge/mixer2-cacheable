@@ -5,21 +5,21 @@ Install
 -------
 for maven pom.xml .
 
- <dependency>
-    <groupId>org.mixer2</groupId>
-    <artifactId>mixer2-cacheable</artifactId>
-    <version>1.0.1</version>
- </dependency>
- <dependency>
-    <groupId>org.mixer2</groupId>
-    <artifactId>mixer2</artifactId>
-    <version>1.2.10</version><!-- or higher  -->
- </dependency>
     <dependency>
-    <groupId>javax.cache</groupId>
-    <artifactId>cache-api</artifactId>
-    <version>0.8</version><!-- or higher  -->
- </dependency>
+        <groupId>org.mixer2</groupId>
+        <artifactId>mixer2-cacheable</artifactId>
+        <version>1.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.mixer2</groupId>
+        <artifactId>mixer2</artifactId>
+        <version>1.2.10</version><!-- or higher  -->
+    </dependency>
+        <dependency>
+        <groupId>javax.cache</groupId>
+        <artifactId>cache-api</artifactId>
+        <version>0.8</version><!-- or higher  -->
+    </dependency>
 
 for manual management of jar .
 
@@ -32,27 +32,27 @@ sample for manual instantiation code.
 
 before:
 
- Mixer2Engine mixer2Engine = new Mixer2Engine();
+    Mixer2Engine mixer2Engine = new Mixer2Engine();
 
 after:
 
- Mixer2Engine mixer2Engine = new CacheableMixer2Engine();
+    Mixer2Engine mixer2Engine = new CacheableMixer2Engine();
 
 sample for Spring DI container configuration xml.
 
 before:
 
- <bean
-  id="mixer2Engine"
-  class="org.mixer2.Mixer2Engine"
-  scope="singleton" />
+    <bean
+        id="mixer2Engine"
+        class="org.mixer2.Mixer2Engine"
+        scope="singleton" />
 
 after:
 
- <bean
-  id="mixer2Engine"
-  class="org.mixer2.cacheable.CacheableMixer2Engine"
-  scope="singleton" />
+    <bean
+        id="mixer2Engine"
+        class="org.mixer2.cacheable.CacheableMixer2Engine"
+        scope="singleton" />
 
 To use custom cache instance,
 you should implement javax.cache.Cache interface
