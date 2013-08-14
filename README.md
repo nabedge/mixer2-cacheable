@@ -13,7 +13,7 @@ for maven pom.xml .
     <dependency>
         <groupId>org.mixer2</groupId>
         <artifactId>mixer2</artifactId>
-        <version>1.2.10</version><!-- or higher  -->
+        <version>1.2.12</version><!-- or higher  -->
     </dependency>
         <dependency>
         <groupId>javax.cache</groupId>
