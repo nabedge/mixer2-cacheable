@@ -15,8 +15,8 @@ import org.mixer2.jaxb.xhtml.Html;
  * <p>
  * requires:
  * <ul>
- * <li>cache-api-0.8.jar (or higher)</li>
- * <li>mixer2-1.2.10.jar (or higher)</li>
+ * <li>cache-api-1.0.0.jar (or higher)</li>
+ * <li>mixer2-1.2.22.jar (or higher)</li>
  * </ul>
  * Also you should add cache library that has implementation of javax.cache (JSR-107).
  * </p>

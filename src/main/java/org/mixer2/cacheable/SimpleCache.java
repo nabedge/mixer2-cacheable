@@ -7,7 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
+import javax.cache.configuration.CacheEntryListenerConfiguration;
+import javax.cache.configuration.Configuration;
 import javax.cache.integration.CompletionListener;
+import javax.cache.processor.EntryProcessor;
+import javax.cache.processor.EntryProcessorException;
+import javax.cache.processor.EntryProcessorResult;
 
 import org.mixer2.jaxb.xhtml.Html;
 
@@ -182,34 +187,6 @@ public class SimpleCache implements Cache<String, Html> {
      * <strong>NOT implemented</strong>
      */
     @Override
-    public javax.cache.configuration.Configuration<String, Html> getConfiguration() {
-        throw new UnsupportedOperationException("not implemented.");
-    }
-
-    /**
-     * <strong>NOT implemented</strong>
-     */
-    @Override
-    public <T> T invoke(String key,
-            javax.cache.Cache.EntryProcessor<String, Html, T> entryProcessor,
-            Object... arguments) {
-        throw new UnsupportedOperationException("not implemented.");
-    }
-
-    /**
-     * <strong>NOT implemented</strong>
-     */
-    @Override
-    public <T> Map<String, T> invokeAll(Set<? extends String> keys,
-            javax.cache.Cache.EntryProcessor<String, Html, T> entryProcessor,
-            Object... arguments) {
-        throw new UnsupportedOperationException("not implemented.");
-    }
-
-    /**
-     * <strong>NOT implemented</strong>
-     */
-    @Override
     public String getName() {
         throw new UnsupportedOperationException("not implemented.");
     }
@@ -251,6 +228,53 @@ public class SimpleCache implements Cache<String, Html> {
      */
     @Override
     public Iterator<javax.cache.Cache.Entry<String, Html>> iterator() {
+        throw new UnsupportedOperationException("not implemented.");
+    }
+
+    /**
+     * <strong>NOT implemented</strong>
+     */
+    @Override
+    public <C extends Configuration<String, Html>> C getConfiguration(
+            Class<C> clazz) {
+        throw new UnsupportedOperationException("not implemented.");
+    }
+
+    /**
+     * <strong>NOT implemented</strong>
+     */
+    @Override
+    public <T> T invoke(String key,
+            EntryProcessor<String, Html, T> entryProcessor, Object... arguments)
+            throws EntryProcessorException {
+        throw new UnsupportedOperationException("not implemented.");
+    }
+
+    /**
+     * <strong>NOT implemented</strong>
+     */
+    @Override
+    public <T> Map<String, EntryProcessorResult<T>> invokeAll(
+            Set<? extends String> keys,
+            EntryProcessor<String, Html, T> entryProcessor, Object... arguments) {
+        throw new UnsupportedOperationException("not implemented.");
+    }
+
+    /**
+     * <strong>NOT implemented</strong>
+     */
+    @Override
+    public void registerCacheEntryListener(
+            CacheEntryListenerConfiguration<String, Html> cacheEntryListenerConfiguration) {
+        throw new UnsupportedOperationException("not implemented.");
+    }
+
+    /**
+     * <strong>NOT implemented</strong>
+     */
+    @Override
+    public void deregisterCacheEntryListener(
+            CacheEntryListenerConfiguration<String, Html> cacheEntryListenerConfiguration) {
         throw new UnsupportedOperationException("not implemented.");
     }
 

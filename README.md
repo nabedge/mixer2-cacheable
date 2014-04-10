@@ -7,23 +7,18 @@ for maven pom.xml .
 
     <dependency>
         <groupId>org.mixer2</groupId>
-        <artifactId>mixer2-cacheable</artifactId>
-        <version>1.0.1</version>
+        <artifactId>mixer2</artifactId>
+        <version>1.2.22</version><!-- or higher  -->
     </dependency>
     <dependency>
         <groupId>org.mixer2</groupId>
-        <artifactId>mixer2</artifactId>
-        <version>1.2.12</version><!-- or higher  -->
-    </dependency>
-        <dependency>
-        <groupId>javax.cache</groupId>
-        <artifactId>cache-api</artifactId>
-        <version>0.8</version><!-- or higher  -->
+        <artifactId>mixer2-cacheable</artifactId>
+        <version>1.0.2</version><!-- or higher  -->
     </dependency>
 
 for manual management of jar .
 
- http://mixer2.org/dist/mixer2-cacheable-1.0.1-jars.zip
+ http://mixer2.org/dist/
  
 Usage
 -----
